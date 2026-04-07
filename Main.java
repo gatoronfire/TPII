@@ -8,6 +8,7 @@ public class Main {
             sc.close();
             return;
         }
+        putos
         //leer el primer int que me dice la cantidad de operaciones
         int cantidad = sc.nextInt();
         sc.nextLine();
