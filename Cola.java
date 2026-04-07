@@ -8,7 +8,7 @@ public class Cola {
 class cola {
         public Cola(){
         }
-        public void PUSH(int x){
+        public void PUSH(){
         }
         public Integer TOP(){
         }
