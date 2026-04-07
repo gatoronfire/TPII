@@ -10,11 +10,11 @@ class cola {
         }
         public void PUSH(){
         }
-        public Integer TOP(){
+        public String TOP(){
         }
         public Boolean EMPTY(){
         }
-        public Integer SIZE(){
+        public String SIZE(){
         }
         public void POP(){
         }
