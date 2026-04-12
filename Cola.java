@@ -30,5 +30,6 @@ class cola {
         public String SIZE(){
         }
         public void POP(){
+            tope = tope -1;
         }
     }
