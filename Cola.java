@@ -5,11 +5,11 @@ public class Cola {
     }
 }
 
-class Cola {
+class cola {
     private int[] cola;
     private int tope;
 
-        public Cola(int N) {
+        public cola(int N) {
             this.cola = new int[N];
             this.tope = -1;
         }
