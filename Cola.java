@@ -6,12 +6,14 @@ public class Cola {
 }
 
 class cola {
-    private int[] cola;
-    private int tope;
+    private String[] cola;
+    private int cabeza;
+    private int fin;
 
         public cola(int N) {
-            this.cola = new int[N];
-            this.tope = -1;
+            this.cola = new String[N];
+            this.cabeza = 0;
+            this.fin = 0;
         }
         public void PUSH(){
         }
