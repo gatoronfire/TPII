@@ -41,20 +41,20 @@ public class Cola {
 
 class cola {
     private String[] cola;
-    private int cabeza;
+    private int inicio;
     private int fin;
     private int size;
 
         public cola(int N) {
             this.cola = new String[N];
-            this.cabeza = 0;
+            this.inicio = 0;
             this.fin = 0;
             this.size = 0;
         }
         public void PUSH(){
         }
         public String TOP(){
-            return (cola[cabeza]);
+            return (cola[inicio]);
         }
         public Boolean EMPTY(){
 
