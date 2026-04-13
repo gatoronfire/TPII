@@ -58,12 +58,12 @@ class Nola {
 
     public void PUSH(String txt) {
         // la siguiente posicion esta libre?
-        if (fin == inicio) {
+        if (cola[fin] != null && fin == inicio) {
             return;
         }
         cola[fin] = txt;
         //la siguiente posicion existe en el arreglo?
-        if ((fin + 1) > cola.length) {
+        if ((fin + 1) == cola.length) {
             fin = 0;
             return;
         }
