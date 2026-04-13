@@ -63,6 +63,5 @@ class cola {
             return(size);
         }
         public void POP(){
-            tope = tope -1;
         }
     }
