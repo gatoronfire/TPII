@@ -10,7 +10,7 @@ public class Cola {
         int tamaño = 0;
 
         // loop para recorrer el arreglo en funcion de N
-        for (int i = 0; i < (N + 2); i++) {
+        for (int i = 0; i < N; i++) {
             String operacion = sc.nextLine();
             // debe agregar un elemento al FINAL de la cola
             if (operacion.contains("PUSH")) {
