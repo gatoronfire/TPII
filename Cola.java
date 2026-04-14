@@ -62,7 +62,7 @@ class Nola {
             return;
         }
         cola[fin] = txt;
-        //la siguiente posicion existe en el arreglo?
+        // la siguiente posicion existe en el arreglo?
         if ((fin + 1) == cola.length) {
             fin = 0;
             return;
@@ -75,5 +75,15 @@ class Nola {
     }
 
     public void POP() {
+        if (cola[inicio] == null) {
+            return;
+        }
+        cola[inicio] = null;
+        if ((inicio + 1) == cola.length) {
+            inicio = 0;
+        } else {
+            inicio++;
+        }
     }
 }
+// diego se la come
