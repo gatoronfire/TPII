@@ -18,6 +18,7 @@ public class Cola {
                 c.PUSH(txt);
                 tamaño++;
             }
+            // diego gay
             // debe eliminar un elemento del INICIO de la cola
             if (operacion.contains("POP")) {
                 c.POP();
@@ -62,7 +63,7 @@ class Nola {
             return;
         }
         cola[fin] = txt;
-        //la siguiente posicion existe en el arreglo?
+        // la siguiente posicion existe en el arreglo?
         if ((fin + 1) == cola.length) {
             fin = 0;
             return;
@@ -75,5 +76,16 @@ class Nola {
     }
 
     public void POP() {
+        if (cola[inicio] == null) {
+            return;
+        }
+        cola[inicio] = null;
+        if ((inicio + 1) == cola.length) {
+            inicio = 0;
+
+        } else {
+            inicio++;
+        }
+
     }
 }
