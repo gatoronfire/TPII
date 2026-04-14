@@ -30,9 +30,9 @@ public class Cola {
             // debe indicar si la cola esta vacia o no
             if (operacion.contains("EMPTY")) {
                 if (tamaño > 0) {
-                    System.out.println(1);
-                } else {
                     System.out.println(0);
+                } else {
+                    System.out.println(1);
                 }
             }
             // debe mostrar el elemento en el tope de la cola
