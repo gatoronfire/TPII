@@ -8,21 +8,25 @@ public class Torneo {
         //guardar los equipos en el arreglo al principio
         Zola equipos = new Zola(N);
 
+
+
         for (int i = 0; i < N; i++) {
-            String equipo = sc.nextLine(); 
-            // lo guardo dentro del arreglo
-            equipos.PUSH(equipo);
+            String nombres = sc.nextLine();  
+            equipos.PUSH(nombres);
         }
         int R = sc.nextInt();
-        sc.nextLine();
-        for (int i = 0; i < R; i++) {
-            String respuestas = sc.nextLine();
+        for (int i = 0; i < R+1; i++) {
+            String respuestas = sc.nextLine();  
             if(respuestas.equals("BIEN")){
-                equipos.PUSH(equipos.TOP());
-            } 
-            if(respuestas.equals("MAL")){
+                String ganador = equipos.TOP();
                 equipos.POP();
-            }         
+                equipos.PUSH(ganador);
+            }else{
+                if(respuestas.equals("MAL")){
+                    equipos.POP();
+                }
+            }
+
         }
         System.out.println(equipos.TOP());
     }
@@ -40,7 +44,7 @@ class Zola {
 
     public void PUSH(String txt) {
         // la siguiente posicion esta libre?
-        if (cola[fin] != null && fin == inicio) {
+        if (cola[fin] != null) {
             return;
         }
         cola[fin] = txt;
@@ -53,7 +57,13 @@ class Zola {
     }
 
     public String TOP() {
-        return (cola[inicio]);
+        String tope = cola[inicio];
+        return tope;
+    }
+    public void ALL(){
+        for(int i = 0; i < cola.length; i++){
+            System.out.println(cola[i]);
+        }
     }
 
     public void POP() {
@@ -64,9 +74,8 @@ class Zola {
         if ((inicio + 1) == cola.length) {
             inicio = 0;
             return;
-        } else {
-            inicio++;
         }
+        inicio++;
     }
 }
 
