@@ -24,9 +24,51 @@ class Lista{
     Nodo cursor;
     Nodo anterior;
 
-    public Lista(Nodo N){
-        this.primero = N;
-        this.cursor = N;
+    public Lista(){
+        this.primero = null;
+        this.cursor = null;
         this.anterior = null;
+    }
+
+    //insertar en la posicion del cursor 
+    public void INSERT ( int dato){
+        //si la lista tiene algo
+        if (this.primero != null) {
+             //hay un nodo adelante?
+            if (this.cursor.sig){
+                //creando el nodo siguiente que va a apuntar al siguiente del cursor
+                Nodo siguienteNodo = this.cursor.sig;
+                //creo el nuevo nodo, le meto el dato el cursor y apunto al siguiente
+                Nodo nuevo_Nodo = new Nodo(dato, this.cursor, siguienteNodo);
+                //el siguiente del cursor pasa a ser el nuevo nodo
+                this.cursor.sig = nuevo_Nodo;
+                siguienteNodo.ant = nuevo_Nodo;
+                
+            }else{
+            //en caso de que este en al final de la lista
+            Nodo nuevo_Nodo = new Nodo(dato,this.cursor,null);
+                
+            }
+        }else{
+            //en caso de que la lista este vacia
+            Nodo nuevo_Nodo = new Nodo(dato,null,null);
+            this.cursor = nuevo_Nodo;
+            this.primero = nuevo_Nodo;
+
+        }
+           
+    }
+    //En caso de que agregue un elemento al principio de la lista
+    public void PUSH_FRONT(int dato){
+        //el nodo siguiente pasa a ser el primero de la lista
+        Nodo siguienteNodo = this.primero;
+        //creo el nuevo nodo que va a pasar a ser el primero 
+        Nodo nuevo_nodo = new Nodo(dato, null, siguienteNodo);
+        //el primero pasa a ser el nuevo nodo
+        this.primero = nuevo_nodo;
+        siguienteNodo.ant = nuevo_nodo;
+    }
+    public void PUSH_BACK(int dato){
+        
     }
 }

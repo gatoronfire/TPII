@@ -58,15 +58,18 @@ class Nola {
 
     public void PUSH(String txt) {
         // la siguiente posicion esta libre?
+        // quiere decir que si cola ya está llena, entonces no hace nada
         if (cola[fin] != null && fin == inicio) {
             return;
         }
+        //si no lo agrega 
         cola[fin] = txt;
-        // la siguiente posicion existe en el arreglo?
+        //si llego al final de la cola el fin vuelve a ser 0(por la logica de arreglo circular)
         if ((fin + 1) == cola.length) {
             fin = 0;
             return;
         }
+        //le va incrementando al fin hasta que se cumplan alguna de esas dos condiciones y se llene la cola 
         fin++;
     }
 
