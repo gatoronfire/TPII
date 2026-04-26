@@ -96,4 +96,6 @@ class Lista{
             cursorAux = cursorAux.sig;
         };
     }
+
+    
 }
