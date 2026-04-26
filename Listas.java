@@ -69,6 +69,16 @@ class Lista{
         siguienteNodo.ant = nuevo_nodo;
     }
     public void PUSH_BACK(int dato){
-        
+        //crear un nuevo cursor para guardar el actual
+        Nodo cursorAux = this.cursor;
+        //mientras el cursor tenga un nodo siguiente, el cursor se va a ir moviendo hasta llegar al final de la lista
+        while (cursorAux.sig != null) {
+            cursorAux = cursorAux.sig;
+        };
+        //creo el nuevo nodo que va a pasar a ser el ultimo
+        Nodo nuevo_nodo = new Nodo(dato, cursorAux, null);
+        //el siguiente del cursorAux pasa a ser el nuevo nodo
+        cursorAux.sig = nuevo_nodo;
+
     }
 }
