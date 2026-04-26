@@ -30,7 +30,7 @@ class Lista{
         this.anterior = null;
     }
 
-    //insertar en la posicion del cursor 
+    //insertar en la posicion siguiente  del cursor 
     public void INSERT ( int dato){
         //si la lista tiene algo
         if (this.primero != null) {
@@ -80,5 +80,20 @@ class Lista{
         //el siguiente del cursorAux pasa a ser el nuevo nodo
         cursorAux.sig = nuevo_nodo;
 
+    }
+    //Eliminar el primer elemento con valor x y colocar el cursor en el siguiente al eliminado
+    public void DELETE(int x){
+        //creo un nuevo cursor para guardar el actual
+        Nodo cursorAux = this.cursor;
+        //Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a eliminar
+        while (cursorAux.sig != null) {
+            //si el siguiente coincide con el valor a eliminar. 
+            if (cursorAux.sig.dato == x) {
+                //apunto al siguiente del siguiente del cursorAUX
+                cursorAux.sig = cursorAux.sig.sig;
+            }
+            //muevo el cursorAux al siguiente nodo
+            cursorAux = cursorAux.sig;
+        };
     }
 }
