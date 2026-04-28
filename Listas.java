@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Listas {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-
         sc.close();
     }
 }
@@ -100,7 +99,6 @@ class Lista{
     //eliminar el último elemento de la lista.
     public void POP_BACK(){
         Nodo cursorAuxiliar = this.cursor;
-
         while(cursorAuxiliar.sig != null){
             cursorAuxiliar = cursorAuxiliar.sig;
         }
@@ -110,29 +108,41 @@ class Lista{
     //eliminar el primer elemento de la lista.
     public void POP_FRONT(){
         primero.sig.ant = null;
-        primero = primero.sig;
+        this.primero = primero.sig;
     }
     //eliminar el elemento al cual apunta el cursor y avanzar una posición el cursor.
     public void ERASE(){
+        //queda desenlazado el nodo del cursor
         cursor.ant.sig = cursor.sig;
         cursor.sig.ant = cursor.ant;
         MOVE();
     }
     //mover el cursor al primer elemento de la lista.
     public void TOP(){
-        cursor = primero;
+        this.cursor = this.primero;
     }
     //avanzar una posición el cursor.
     public void MOVE(){
-        cursor = cursor.sig;
+        this.cursor = this.cursor.sig;
     }
     //indicar si el cursor está posicionado más allá del último elemento de la lista o no.
     public boolean END(){
-            if(cursor.ant == null){
+            if(cursor.ant == null && cursor.sig == null){
                 return true;
             }
             return false;
     }
     //imprimir el valor correspondiente a la posición actual del cursor.
-    public void PRINT()
+    public void PRINT(){
+        System.out.println(this.cursor.dato);
+    }
+    //imprimir todos los elementos de la lista.
+    public void PRINT_ALL(){
+        //se hace un cursor auxiliar para no tocar el original y tambien imprimir el primero
+        Nodo cursorAuxiliar = this.primero;
+        while(cursorAuxiliar != null){
+            System.out.println(cursorAuxiliar.dato);
+            cursorAuxiliar = cursorAuxiliar.sig;
+        }
+    }
 }
