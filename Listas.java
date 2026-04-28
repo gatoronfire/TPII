@@ -84,18 +84,55 @@ class Lista{
     //Eliminar el primer elemento con valor x y colocar el cursor en el siguiente al eliminado
     public void DELETE(int x){
         //creo un nuevo cursor para guardar el actual
-        Nodo cursorAux = this.cursor;
+        Nodo cursorAux = this.primero;
         //Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a eliminar
         while (cursorAux.sig != null) {
             //si el siguiente coincide con el valor a eliminar. 
-            if (cursorAux.sig.dato == x) {
+            if (cursorAux.dato == x) {
                 //apunto al siguiente del siguiente del cursorAUX
-                cursorAux.sig = cursorAux.sig.sig;
+                cursorAux.ant.sig = cursorAux.sig;
+                cursorAux.sig.ant = cursorAux.ant;
             }
             //muevo el cursorAux al siguiente nodo
             cursorAux = cursorAux.sig;
         };
     }
+    //eliminar el último elemento de la lista.
+    public void POP_BACK(){
+        Nodo cursorAuxiliar = this.cursor;
 
-    
+        while(cursorAuxiliar.sig != null){
+            cursorAuxiliar = cursorAuxiliar.sig;
+        }
+        cursorAuxiliar.ant.sig = null;
+
+    }
+    //eliminar el primer elemento de la lista.
+    public void POP_FRONT(){
+        primero.sig.ant = null;
+        primero = primero.sig;
+    }
+    //eliminar el elemento al cual apunta el cursor y avanzar una posición el cursor.
+    public void ERASE(){
+        cursor.ant.sig = cursor.sig;
+        cursor.sig.ant = cursor.ant;
+        MOVE();
+    }
+    //mover el cursor al primer elemento de la lista.
+    public void TOP(){
+        cursor = primero;
+    }
+    //avanzar una posición el cursor.
+    public void MOVE(){
+        cursor = cursor.sig;
+    }
+    //indicar si el cursor está posicionado más allá del último elemento de la lista o no.
+    public boolean END(){
+            if(cursor.ant == null){
+                return true;
+            }
+            return false;
+    }
+    //imprimir el valor correspondiente a la posición actual del cursor.
+    public void PRINT()
 }
