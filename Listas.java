@@ -84,12 +84,13 @@ class Lista{
     //Eliminar el primer elemento con valor x y colocar el cursor en el siguiente al eliminado
     public void DELETE(int x){
         //creo un nuevo cursor para guardar el actual
-        Nodo cursorAux = this.primero;
+        Nodo cursorAux = this.cursor;
         //Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a eliminar
         while (cursorAux.sig != null) {
             //si el siguiente coincide con el valor a eliminar. 
-            if (cursorAux.dato == x) {
-                cursorAux.sig = cursorAux.ant;
+            if (cursorAux.sig.dato == x) {
+                //apunto al siguiente del siguiente del cursorAUX
+                cursorAux.sig = cursorAux.sig.sig;
             }
             //muevo el cursorAux al siguiente nodo
             cursorAux = cursorAux.sig;
