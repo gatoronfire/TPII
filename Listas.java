@@ -4,6 +4,54 @@ public class Listas {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         sc.close();
+        int N = sc.nextInt();
+        sc.nextLine();
+        Lista l = new Lista();
+        for (int i = 0; i < N; i++) {
+          String operacion = sc.nextLine(); 
+            if (operacion.contains("INSERT")) {
+                String txt = operacion.replace("INSERT ", "");
+                l.INSERT(Integer.parseInt(txt));
+            }
+            if (operacion.contains("PUSH_BACK")) {
+                String txt = operacion.replace("PUSH_BACK ", "");
+                l.PUSH_BACK(Integer.parseInt(txt));
+                
+            }
+            if (operacion.contains("PUSH_FRONT")) {
+                String txt = operacion.replace("PUSH_FRONT ", "");
+                l.PUSH_FRONT(Integer.parseInt(txt));
+            }
+            if (operacion.contains("DELETE")) {
+                String txt = operacion.replace("DELETE ", "");
+                l.DELETE(Integer.parseInt(txt));
+            }
+            if (operacion.contains("POP_BACK")) {
+                l.POP_BACK();
+            }
+            if (operacion.contains("POP_FRONT")) {
+                l.POP_FRONT();
+            }
+            if (operacion.contains("ERASE")) {
+                l.ERASE();
+            }
+            if (operacion.contains("TOP")) {
+                System.out.println(l.TOP());
+            }
+            if (operacion.contains("MOVE")) {
+                l.MOVE();
+            }
+            if (operacion.contains("END")) {
+                System.out.println(l.END());
+            }
+            if (operacion.contains("PRINT")) {
+                l.PRINT();
+            }
+            if (operacion.contains("PRINT_ALL")) {
+                l.PRINT_ALL();
+            }
+
+        }
     }
 }
 
