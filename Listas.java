@@ -43,10 +43,10 @@ public class Listas {
             if (operacion.contains("END")) {
                 System.out.println(l.END());
             }
-            if (operacion.contains("PRINT")) {
+            if (operacion.equals("PRINT")) {
                 l.PRINT();
             }
-            if (operacion.contains("PRINT_ALL")) {
+            if (operacion.equals("PRINT_ALL")) {
                 l.PRINT_ALL();
             }
 
@@ -114,18 +114,16 @@ class Lista {
         if (primero == null) {
             primero = nuevo_nodo;
             cursor = primero;
-
-        } else {
-            primero.ant = nuevo_nodo;
-            nuevo_nodo.sig = primero;
-            primero = nuevo_nodo;
+            return;
         }
+        primero.ant = nuevo_nodo;
+        nuevo_nodo.sig = primero;
+        primero = nuevo_nodo;
+        
 
     }
 
     public void PUSH_BACK(int dato) {
-        // crear un nuevo cursor para guardar el actual
-
         // chequea si esta vacia
         if (primero == null) {
             primero = new Nodo(dato, null, null);
@@ -135,11 +133,10 @@ class Lista {
 
         // mientras el cursor tenga un nodo siguiente, el cursor se va a ir moviendo
         // hasta llegar al final de la lista
-        Nodo cursorAux = this.cursor;
+        Nodo cursorAux = cursor;
         while (cursorAux.sig != null) {
             cursorAux = cursorAux.sig;
-        }
-        ;
+        };
         // creo el nuevo nodo que va a pasar a ser el ultimo
         Nodo nuevo_nodo = new Nodo(dato, cursorAux, null);
         // el siguiente del cursorAux pasa a ser el nuevo nodo
@@ -213,14 +210,14 @@ class Lista {
 
     // imprimir el valor correspondiente a la posición actual del cursor.
     public void PRINT() {
-        System.out.println(this.cursor.dato);
+        System.out.println(cursor.dato);
     }
 
     // imprimir todos los elementos de la lista.
     public void PRINT_ALL() {
         // se hace un cursor auxiliar para no tocar el original y tambien imprimir el
         // primero
-        Nodo cursorAuxiliar = this.primero;
+        Nodo cursorAuxiliar = primero;
         while (cursorAuxiliar != null) {
             System.out.println(cursorAuxiliar.dato);
             cursorAuxiliar = cursorAuxiliar.sig;
