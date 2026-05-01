@@ -165,18 +165,41 @@ class Lista {
 
     // eliminar el último elemento de la lista.
     public void POP_BACK() {
+        //chequear si la lista esta vacia
+        if (primero == null) {
+            return;
+        }
         Nodo cursorAuxiliar = this.cursor;
         while (cursorAuxiliar.sig != null) {
             cursorAuxiliar = cursorAuxiliar.sig;
         }
-        cursorAuxiliar.ant.sig = null;
-
+        //chequear si la lista tiene un solo elemento
+        if (cursorAuxiliar.ant == null) {
+            primero = null;
+            cursor = null;
+            return;
+        }else{
+            cursorAuxiliar.ant.sig = null;
+        }
+        
     }
 
     // eliminar el primer elemento de la lista.
     public void POP_FRONT() {
-        primero.sig.ant = null;
-        this.primero = primero.sig;
+        //chequear si la lista esta vacia
+        if (primero == null) {
+            return;
+        }
+        //chequear si la lista tiene un solo elemento
+        if (primero.sig == null) {
+            primero = null;
+            cursor = null;
+            return;
+        }else{ 
+            primero = primero.sig;
+           primero.sig.ant = null; 
+        }
+        
     }
 
     // eliminar el elemento al cual apunta el cursor y avanzar una posición el
