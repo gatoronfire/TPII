@@ -82,15 +82,15 @@ class Lista {
     // insertar en la posicion siguiente del cursor
     public void INSERT(int dato) {
         // si la lista tiene algo
-        if (this.primero != null) {
+        if (primero != null) {
             // hay un nodo adelante?
-            if (this.cursor.sig != null) {
+            if (cursor.sig != null) {
                 // creando el nodo siguiente que va a apuntar al siguiente del cursor
-                Nodo siguienteNodo = this.cursor.sig;
+                Nodo siguienteNodo = cursor.sig;
                 // creo el nuevo nodo, le meto el dato el cursor y apunto al siguiente
-                Nodo nuevo_Nodo = new Nodo(dato, this.cursor, siguienteNodo);
+                Nodo nuevo_Nodo = new Nodo(dato, cursor, siguienteNodo);
                 // el siguiente del cursor pasa a ser el nuevo nodo
-                this.cursor.sig = nuevo_Nodo;
+                cursor.sig = nuevo_Nodo;
                 siguienteNodo.ant = nuevo_Nodo;
 
             } else {
@@ -101,8 +101,8 @@ class Lista {
         } else {
             // en caso de que la lista este vacia
             Nodo nuevo_Nodo = new Nodo(dato, null, null);
-            this.cursor = nuevo_Nodo;
-            this.primero = nuevo_Nodo;
+            cursor = nuevo_Nodo;
+            primero = nuevo_Nodo;
 
         }
 
@@ -147,7 +147,7 @@ class Lista {
     // al eliminado
     public void DELETE(int x) {
         // creo un nuevo cursor para guardar el actual
-        Nodo cursorAux = this.primero;
+        Nodo cursorAux = primero;
         // Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a
         // eliminar
         while (cursorAux.sig != null) {
@@ -213,13 +213,13 @@ class Lista {
 
     // mover el cursor al primer elemento de la lista.
     public Integer TOP() {
-        return this.primero.dato;
+        return primero.dato;
 
     }
 
     // avanzar una posición el cursor.
     public void MOVE() {
-        this.cursor = this.cursor.sig;
+        cursor = cursor.sig;
     }
 
     // indicar si el cursor está posicionado más allá del último elemento de la
