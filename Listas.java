@@ -82,7 +82,12 @@ class Lista {
     // insertar en la posicion siguiente del cursor
     public void INSERT(int dato) {
         // si la lista tiene algo
-        if (primero != null) {
+
+        if (primero != null) {       
+        //que el primero no sea null, no significa que el cursor no pueda ser null, ya que el cursor se puede mover a lo largo de la lista, pero el primero siempre va a ser el mismo
+            if (cursor == null) {
+                cursor = primero;
+            }
             // hay un nodo adelante?
             if (cursor.sig != null) {
                 // creando el nodo siguiente que va a apuntar al siguiente del cursor
@@ -92,11 +97,14 @@ class Lista {
                 // el siguiente del cursor pasa a ser el nuevo nodo
                 cursor.sig = nuevo_Nodo;
                 siguienteNodo.ant = nuevo_Nodo;
+                // el nuevo nodo pasa a ser el siguiente del cursor
+                cursor = nuevo_Nodo;
 
             } else {
                 // en caso de que este en al final de la lista
-                Nodo nuevo_Nodo = new Nodo(dato, this.cursor, null);
-
+                Nodo nuevo_Nodo = new Nodo(dato, cursor, null);
+                cursor.sig = nuevo_Nodo;
+                cursor = nuevo_Nodo;
             }
         } else {
             // en caso de que la lista este vacia
