@@ -156,20 +156,32 @@ class Lista {
     public void DELETE(int x) {
         // creo un nuevo cursor para guardar el actual
         Nodo cursorAux = primero;
-        // Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a
-        // eliminar
         while (cursorAux.sig != null) {
-            // si el siguiente coincide con el valor a eliminar.
             if (cursorAux.dato == x) {
-                // apunto al siguiente del siguiente del cursorAUX
+                //eliminar el nodo primero
+                if (cursorAux.ant == null) {
+                    primero = cursorAux.sig;
+                    if (primero != null) {
+                        primero.ant = null;
+                    }
+                }
+                //eliminar el nodo ultimo
+                else if (cursorAux.sig == null) {
+                    cursorAux.ant.sig = null;
+                }
+                //eliminar el nodo del medio
+                else {
                 cursorAux.ant.sig = cursorAux.sig;
                 cursorAux.sig.ant = cursorAux.ant;
-            }
+                }
             // muevo el cursorAux al siguiente nodo
-            cursorAux = cursorAux.sig;
+            cursor = cursorAux.sig;
+            return;
+
         }
-        ;
-    }
+        cursorAux = cursorAux.sig;
+    }     
+}
 
     // eliminar el último elemento de la lista.
     public void POP_BACK() {
