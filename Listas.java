@@ -85,6 +85,7 @@ class Lista {
 
         if (primero != null) {       
         //que el primero no sea null, no significa que el cursor no pueda ser null, ya que el cursor se puede mover a lo largo de la lista, pero el primero siempre va a ser el mismo
+            // si el cursor es null, lo posiciono en el primero 
             if (cursor == null) {
                 cursor = primero;
             }
@@ -101,13 +102,12 @@ class Lista {
                 cursor = nuevo_Nodo;
 
             } else {
-                // en caso de que este en al final de la lista
+                // EN CASO DE QUE QUIERA INSERTAR AL FINAL DE LA LISTA.
                 Nodo nuevo_Nodo = new Nodo(dato, cursor, null);
                 cursor.sig = nuevo_Nodo;
                 cursor = nuevo_Nodo;
             }
-        } else {
-            // en caso de que la lista este vacia
+        } else { // EN CASO DE QUE LA LISTA ESTE VACIA
             Nodo nuevo_Nodo = new Nodo(dato, null, null);
             cursor = nuevo_Nodo;
             primero = nuevo_Nodo;
@@ -225,10 +225,26 @@ class Lista {
     // eliminar el elemento al cual apunta el cursor y avanzar una posición el
     // cursor.
     public void ERASE() {
-        // queda desenlazado el nodo del cursor
-        cursor.ant.sig = cursor.sig;
-        cursor.sig.ant = cursor.ant;
-        MOVE();
+        //EN CASO DE QUE HAYA UN SOLO NODO
+        if (cursor.ant == null && cursor.sig == null) {
+            primero = null;
+            cursor = null;
+            return;
+        } //EN CASO DE QUE QUIERA ELIMINAR EL PRIMERO
+        else if (cursor.ant == null) {
+            primero = cursor.sig;
+            primero.ant = null;
+            cursor = primero;
+        } //EN CASO DE QUE QUIERA ELIMINAR EL ULTIMO
+        else if (cursor.sig == null) {
+            cursor.ant.sig = null;
+            cursor = cursor.ant;
+        }//EN CASO DE QUE QUIERA ELIMINAR UN NODO DEL MEDIO
+        else {
+            cursor.ant.sig = cursor.sig;
+            cursor.sig.ant = cursor.ant;
+            MOVE();
+        }
     }
 
     // mover el cursor al primer elemento de la lista.
@@ -239,7 +255,11 @@ class Lista {
 
     // avanzar una posición el cursor.
     public void MOVE() {
-        cursor = cursor.sig;
+        //no permitir que el cursor salga de la lista
+        //irse moviendo adentro de la lista
+        if ( cursor != null && cursor.sig != null) {
+            cursor = cursor.sig;
+        }
     }
 
     // indicar si el cursor está posicionado más allá del último elemento de la
