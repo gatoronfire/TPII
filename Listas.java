@@ -35,13 +35,13 @@ public class Listas {
                 l.ERASE();
             }
             if (operacion.contains("TOP")) {
-                System.out.println(l.TOP());
+                l.TOP();
             }
             if (operacion.contains("MOVE")) {
                 l.MOVE();
             }
             if (operacion.contains("END")) {
-                System.out.println(l.END());
+                l.END();
             }
             if (operacion.equals("PRINT")) {
                 l.PRINT();
@@ -82,13 +82,7 @@ class Lista {
     // insertar en la posicion siguiente del cursor
     public void INSERT(int dato) {
         // si la lista tiene algo
-
-        if (primero != null) {       
-        //que el primero no sea null, no significa que el cursor no pueda ser null, ya que el cursor se puede mover a lo largo de la lista, pero el primero siempre va a ser el mismo
-            // si el cursor es null, lo posiciono en el primero 
-            if (cursor == null) {
-                cursor = primero;
-            }
+        if (primero != null) {
             // hay un nodo adelante?
             if (cursor.sig != null) {
                 // creando el nodo siguiente que va a apuntar al siguiente del cursor
@@ -98,20 +92,17 @@ class Lista {
                 // el siguiente del cursor pasa a ser el nuevo nodo
                 cursor.sig = nuevo_Nodo;
                 siguienteNodo.ant = nuevo_Nodo;
-                // el nuevo nodo pasa a ser el siguiente del cursor
-                cursor = nuevo_Nodo;
 
             } else {
-                // EN CASO DE QUE QUIERA INSERTAR AL FINAL DE LA LISTA.
+                // en caso de que este en al final de la lista
                 Nodo nuevo_Nodo = new Nodo(dato, cursor, null);
                 cursor.sig = nuevo_Nodo;
-                cursor = nuevo_Nodo;
             }
-        } else { // EN CASO DE QUE LA LISTA ESTE VACIA
+        } else {
+            // en caso de que la lista este vacia
             Nodo nuevo_Nodo = new Nodo(dato, null, null);
-            cursor = nuevo_Nodo;
             primero = nuevo_Nodo;
-
+            cursor = primero;
         }
 
     }
@@ -127,7 +118,6 @@ class Lista {
         primero.ant = nuevo_nodo;
         nuevo_nodo.sig = primero;
         primero = nuevo_nodo;
-        
 
     }
 
@@ -144,7 +134,8 @@ class Lista {
         Nodo cursorAux = cursor;
         while (cursorAux.sig != null) {
             cursorAux = cursorAux.sig;
-        };
+        }
+        ;
         // creo el nuevo nodo que va a pasar a ser el ultimo
         Nodo nuevo_nodo = new Nodo(dato, cursorAux, null);
         // el siguiente del cursorAux pasa a ser el nuevo nodo
@@ -156,119 +147,117 @@ class Lista {
     public void DELETE(int x) {
         // creo un nuevo cursor para guardar el actual
         Nodo cursorAux = primero;
-        while (cursorAux.sig != null) {
+        // Recorrer la lista hasta llegar al final de la lista o encontrar el elemento a
+        // eliminar
+        while (cursorAux != null) {
+            // si el siguiente coincide con el valor a eliminar.
             if (cursorAux.dato == x) {
-                //eliminar el nodo primero
-                if (cursorAux.ant == null) {
-                    primero = cursorAux.sig;
-                    if (primero != null) {
-                        primero.ant = null;
-                    }
+                // estoy en la mitad de la lista
+                if (cursorAux.ant != null && cursorAux.sig != null) {
+                    Nodo sig = cursorAux.sig;
+                    cursorAux.ant.sig = cursorAux.sig;
+                    cursorAux.sig.ant = cursorAux.ant;
+                    cursor =sig;
+                    return;
                 }
-                //eliminar el nodo ultimo
-                else if (cursorAux.sig == null) {
-                    cursorAux.ant.sig = null;
+                // estoy al inicio de la lista
+                if (cursorAux == primero) {
+                    POP_FRONT();
+                    MOVE();
+                    return;
                 }
-                //eliminar el nodo del medio
-                else {
-                cursorAux.ant.sig = cursorAux.sig;
-                cursorAux.sig.ant = cursorAux.ant;
+                // estoy al final
+                if (cursorAux != primero && cursorAux.sig == null) {
+                    POP_BACK();
+                    MOVE();
+                    return;
                 }
+            }
             // muevo el cursorAux al siguiente nodo
-            cursor = cursorAux.sig;
-            return;
-
+            cursorAux = cursorAux.sig;
         }
-        cursorAux = cursorAux.sig;
-    }     
-}
+        ;
+    }
 
     // eliminar el último elemento de la lista.
     public void POP_BACK() {
-        //chequear si la lista esta vacia
-        if (primero == null) {
-            return;
-        }
-        Nodo cursorAuxiliar = this.cursor;
-        while (cursorAuxiliar.sig != null) {
-            cursorAuxiliar = cursorAuxiliar.sig;
-        }
-        //chequear si la lista tiene un solo elemento
-        if (cursorAuxiliar.ant == null) {
+        Nodo cursorAuxiliar = cursor;
+        // lista <= 1
+        if (cursorAuxiliar == primero && cursorAuxiliar.sig == null) {
             primero = null;
             cursor = null;
             return;
-        }else{
-            cursorAuxiliar.ant.sig = null;
         }
-        
+        // lista > 1
+        while (cursorAuxiliar.sig != null) {
+            cursorAuxiliar = cursorAuxiliar.sig;
+        }
+        cursorAuxiliar.ant.sig = null;
+        if (cursorAuxiliar == cursor) {
+            cursor = cursorAuxiliar.ant;
+        }
     }
 
     // eliminar el primer elemento de la lista.
     public void POP_FRONT() {
-        //chequear si la lista esta vacia
-        if (primero == null) {
+        if (primero != null) {
+            if (primero.sig != null) {
+                primero.sig.ant = null;
+                if (cursor == primero) {
+                    cursor = primero.sig;
+                }
+                primero = primero.sig;
+                return;
+            } else {
+                primero = null;
+                cursor = null;
+                return;
+            }
+        } else {
             return;
         }
-        //chequear si la lista tiene un solo elemento
-        if (primero.sig == null) {
-            primero = null;
-            cursor = null;
-            return;
-        }else{ 
-            primero = primero.sig;
-           primero.sig.ant = null; 
-        }
-        
+
     }
 
     // eliminar el elemento al cual apunta el cursor y avanzar una posición el
     // cursor.
     public void ERASE() {
-        //EN CASO DE QUE HAYA UN SOLO NODO
-        if (cursor.ant == null && cursor.sig == null) {
-            primero = null;
-            cursor = null;
-            return;
-        } //EN CASO DE QUE QUIERA ELIMINAR EL PRIMERO
-        else if (cursor.ant == null) {
-            primero = cursor.sig;
-            primero.ant = null;
-            cursor = primero;
-        } //EN CASO DE QUE QUIERA ELIMINAR EL ULTIMO
-        else if (cursor.sig == null) {
-            cursor.ant.sig = null;
-            cursor = cursor.ant;
-        }//EN CASO DE QUE QUIERA ELIMINAR UN NODO DEL MEDIO
-        else {
+        if (cursor.ant != null && cursor.sig != null) {
+            Nodo siguiente = cursor.sig;
             cursor.ant.sig = cursor.sig;
             cursor.sig.ant = cursor.ant;
-            MOVE();
+            cursor = siguiente;
+            return;
+        }
+        if(cursor == primero){
+            POP_FRONT();
+            return;
+        }
+        if(cursor.sig == null){
+            POP_BACK();
+            return;
         }
     }
 
     // mover el cursor al primer elemento de la lista.
-    public Integer TOP() {
-        return primero.dato;
-
+    public void TOP() {
+        cursor = primero;
     }
 
     // avanzar una posición el cursor.
     public void MOVE() {
-        //no permitir que el cursor salga de la lista
-        //irse moviendo adentro de la lista
-        if ( cursor != null && cursor.sig != null) {
-            cursor = cursor.sig;
-        }
+        cursor = cursor.sig;
     }
 
     // indicar si el cursor está posicionado más allá del último elemento de la
     // lista o no.
-    public boolean END() {
-        if (cursor.ant == null && cursor.sig == null) {
-            return true;
+    public void END() {
+        if (cursor.ant != null && cursor == null) {
+            System.out.println(1);
+            return;
         }
-        return false;
+        System.out.println(0);
+        return;
     }
 
     // imprimir el valor correspondiente a la posición actual del cursor.
@@ -280,10 +269,17 @@ class Lista {
     public void PRINT_ALL() {
         // se hace un cursor auxiliar para no tocar el original y tambien imprimir el
         // primero
+        String todos = "";
         Nodo cursorAuxiliar = primero;
         while (cursorAuxiliar != null) {
-            System.out.println(cursorAuxiliar.dato);
+            if(cursorAuxiliar == primero){
+                todos = todos + cursorAuxiliar.dato;
+            }else{
+                todos = todos + " " + cursorAuxiliar.dato;
+            }
+            
             cursorAuxiliar = cursorAuxiliar.sig;
         }
+        System.out.println(todos);
     }
 }
