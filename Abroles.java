@@ -56,6 +56,21 @@ public class Abroles {
                 }
             }
         }
+    public void preorden(Nodo nodo){
+    // caso base,donde la funcion corta
+    if(nodo == null){
+        return;
+    }
+    // visitar el nodo actual
+    System.out.println(nodo.dato);
+    // recorrer hijos
+    for(int i = 0; i < nodo.hijos.length; i++){
+        if(nodo.hijos[i] != null){
+            //la funcion se llama a si misma para recorrer el hijo
+            preorden(nodo.hijos[i]);
+            }
+        }
+    }
 
 }
 
