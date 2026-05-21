@@ -1,21 +1,21 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Abroles {
-    public void main() {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         sc.nextLine();
+        //pedir los numeros enteros separados por espacios 
         String padresString = sc.nextLine();
+        //dividir el texto usando espacios y guarda los numeros como un arreglo de strings
         String[] partes = padresString.split(" ");
         int[] padres = new int[(N-1)];
-        for(int i= 0;i < partes.length; i++ ){
-            padres[i] = Integer.parseInt(partes[i]);
-        }
-        for(int i= 0;i < (N-1); i++ ){
-            padres[i] = Integer.parseInt(partes[i]);
-        }
 
+
+        for(int i= 0;i < partes.length; i++ ){
+            //convertir cada string a entero y guardarlo en el arreglo de padres
+            padres[i] = Integer.parseInt(partes[i]);
+        }
         //crear un arreglo con N nodos
         Nodo[] nodos = new Nodo[N];
 
@@ -26,6 +26,7 @@ public class Abroles {
         }
 
         for(int i= 0;i < N-1; i++ ){
+            //agregar el hijo con los paramtros del nodo padre y el nodo hijo
             agregarHijo(nodos[padres[i]-1], nodos[i+1]);
         }
 
@@ -45,8 +46,11 @@ public class Abroles {
 
     public void agregarHijo(Nodo padre, Nodo hijo){
             for(int i=0; i < padre.hijos.length; i++){
+                //busca una posicion vacia
                 if(padre.hijos[i] == null){
+                    //agrega el hijo
                     padre.hijos[i] = hijo;
+                    //le asigna el padre al hijo
                     hijo.padre = padre;
                     return;
                 }
