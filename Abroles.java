@@ -44,17 +44,22 @@ public class Abroles {
         }
     }
 
-    public void agregarHijo(Nodo padre, Nodo hijo){
-            for(int i=0; i < padre.hijos.length; i++){
+    public static void agregarHijo(Nodo padre, Nodo hijo){
+        if(padre.hijos[0] == null){
+            padre.hijos[0] = hijo;
+        }else{
+            for(int i=1; i < padre.hijos.length; i++){
                 //busca una posicion vacia
-                if(padre.hijos[i] == null){
+                if(padre.hijos[i].dato < hijo.dato){
                     //agrega el hijo
-                    padre.hijos[i] = hijo;
+                    for(int j = i; j > 0; j--){
+                        
+                    }
                     //le asigna el padre al hijo
-                    hijo.padre = padre;
-                    return;
                 }
             }
+        }
+         hijo.padre = padre;   
     }
     //Preorden: visitar el nodo actual, luego recorrer los hijos de izquierda a derecha
     public void preorden(Nodo nodo){
