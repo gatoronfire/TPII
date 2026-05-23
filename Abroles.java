@@ -106,8 +106,27 @@ public class Abroles {
         System.out.println(nodo.dato);
     }
     //Por nivel: logica FIFO, por ende debemos usar una cola 
-    public void pornivel(Nodo nodo){
-
+    public void pornivel(Nodo nodo , int N){
+        //caso base 
+        if(nodo == null){
+            return;
+        }
+        //creo la cola
+        Cola cola = new Cola(N);
+        //encolar la raiz
+        cola.encolar(nodo);
+        //mientras la cola no este vacia
+        while(!cola.estaVacia()){
+            //desencolo el primero
+            Nodo actual = cola.desencolar();
+            //visito el nodo actual 
+            System.out.println(actual.dato);
+            //encolo sus hijos
+            for(int i = 0; i < actual.hijos.length; i++){
+                if(actual.hijos[i] != null){
+                    cola.encolar(actual.hijos[i]);
+                }
+            }   
     }
 
     //In orden: izquierda, nodo actual,derecha. 
@@ -152,15 +171,27 @@ class Nodo {
 }
 //debo crear una Cola de nodos 
 public class Cola {
-    private Nodo[] cola;
+    private Nodo[] datos;
     private int inicio; 
     private int fin;
+
     public Cola(int N) {
-        this.cola = new Nodo[N];
+        this.datos = new Nodo[N];
         this.inicio = 0;
         this.fin = 0;
     }
-
+    public void encolar(Nodo nodo){
+        datos[fin] = nodo;
+        fin++;
+    }
+    public Nodo desencolar(){
+        Nodo aux = datos[inicio];
+        inicio++;
+        return aux;
+    }
+    public boolean estaVacia(){
+        return inicio == fin;
+    }
     
 }
 
