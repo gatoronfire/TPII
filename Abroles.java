@@ -105,15 +105,35 @@ public class Abroles {
         // visitar el nodo actual
         System.out.println(nodo.dato);
     }
-    //Por nivel: logica FIFO, por ende debemos usar una cola
-    //A definir : crear una cola propia o usar QUEUE , una clase de java que viene bien para esto
+    //Por nivel: logica FIFO, por ende debemos usar una cola 
     public void pornivel(Nodo nodo){
+
     }
 
     //In orden: izquierda, nodo actual,derecha. 
-    //como no es un arbol binario podriamos primero recorrer:
-    //los hijos de la izquierda, luego el nodo actual y luego los hijos de la derecha
+    //para un arbol general, en dnd recorro primero una mitad, dsp visito el nodo y dsp la otra mitad
     public void inorden(Nodo nodo){
+        //caso base
+        if(nodo == null){
+            return;
+        }
+        //encontrar la cantidad de hijos totales
+        int cantidad = 0;
+        while(cantidad < nodo.hijos.length && nodo.hijos[cantidad] != null){
+            cantidad++;
+        }
+        //tengo la mitad de los hijoos
+        int mitad = cantidad / 2;
+        //recorrer
+        for(int i = 0; i < mitad; i++){
+            inorden(nodo.hijos[i]);
+        }
+        //visitar el nodo actual
+        System.out.println(nodo.dato);
+        //recorrer la otra mitad
+        for(int i = mitad; i < cantidad; i++){
+            inorden(nodo.hijos[i]);
+        }
     }
     
 
@@ -129,6 +149,19 @@ class Nodo {
         this.dato = dato;
         this.padre = padre;
     }
+}
+//debo crear una Cola de nodos 
+public class Cola {
+    private Nodo[] cola;
+    private int inicio; 
+    private int fin;
+    public Cola(int N) {
+        this.cola = new Nodo[N];
+        this.inicio = 0;
+        this.fin = 0;
+    }
+
+    
 }
 
 
