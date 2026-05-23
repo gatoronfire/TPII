@@ -126,8 +126,10 @@ public class Abroles {
                 if(actual.hijos[i] != null){
                     cola.encolar(actual.hijos[i]);
                 }
-            }   
-    }
+            }  
+        }
+    }  
+}
 
     //In orden: izquierda, nodo actual,derecha. 
     //para un arbol general, en dnd recorro primero una mitad, dsp visito el nodo y dsp la otra mitad
