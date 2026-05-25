@@ -143,8 +143,7 @@ public class Abroles {
         }
     }  
 
-    //In orden: izquierda, nodo actual,derecha. 
-    //para un arbol general, en dnd recorro primero una mitad, dsp visito el nodo y dsp la otra mitad
+    // recorro el primero subarbol, luego la raiz, luego el resto de los subarboles de izquierda a derecha 
     public static void inorden(Nodo nodo){
         //caso base
         if(nodo == null){
@@ -155,20 +154,17 @@ public class Abroles {
         while(cantidad < nodo.hijos.length && nodo.hijos[cantidad] != null){
             cantidad++;
         }
-        //tengo la mitad de los hijoos
-        int mitad = cantidad / 2;
-        //recorrer
-        for(int i = 0; i < mitad; i++){
-            inorden(nodo.hijos[i]);
+        //recorrer el primer subarbol
+        if(cantidad > 0){
+            inorden(nodo.hijos[0]);
         }
-        //visitar el nodo actual
+        //visitar la raiz
         listadoFinal += " " + nodo.dato;
-        //recorrer la otra mitad
-        for(int i = mitad; i < cantidad; i++){
+        //recorrer el resto de los subarboles 
+        for(int i = 1; i < cantidad; i++){
             inorden(nodo.hijos[i]);
         }
-    }
-    
+    }    
 
 }
 
