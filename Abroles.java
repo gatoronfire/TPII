@@ -55,16 +55,17 @@ public class Abroles {
             }
         }
     }
+    //imprime los valores sin espacio 
+    //reinicia el acumulador de datos 
+    public static void printAndReset(){
+        System.out.println(listadoFinal.trim());
+        listadoFinal = "";
+    }
     //FUNCION AGREGAR HIJO(los menores a la izquierda, los mayores a la derecha)
     //CONCEPTUALMENTE DEBO : 
     // buscar donde debe ir el hijo dependiendo del valor
     // mover los mayores una posicion a la derecha
     // insertar el nuevo hijo 
-    public static void printAndReset(){
-        System.out.println(listadoFinal.trim());
-        listadoFinal = "";
-    }
-
     public static void agregarHijo(Nodo padre, Nodo hijo){
         //creo una variable donde va a quedar el nuevo hijo 
         int posicion = 0;
@@ -88,7 +89,6 @@ public class Abroles {
         padre.hijos[posicion] = hijo;
         //le asigna el padre al hijo
         hijo.padre = padre;
-        hijo.nivel = (padre.nivel + 1);
     }
     //Preorden: visitar el nodo actual, luego recorrer los hijos de izquierda a derecha
     public static void preorden(Nodo nodo){
@@ -176,7 +176,6 @@ class Nodo {
     Nodo[] hijos;
     int dato;
     Nodo padre;
-    int nivel;
 
     public Nodo(int Nodos, int dato, Nodo padre) {
         this.hijos = new Nodo[Nodos];
