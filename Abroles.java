@@ -21,8 +21,12 @@ public class Abroles {
 
         //crear los nodos y agregarlos al arreglo
         for(int i=0; i< N; i++){
+            
             Nodo nuevo = new Nodo(N, i+1, null);
             nodos[i] = nuevo;
+            if(i==0){
+                nuevo.nivel =0;
+            }
         }
 
         for(int i= 0;i < N-1; i++ ){
@@ -72,6 +76,7 @@ public class Abroles {
         padre.hijos[posicion] = hijo;
         //le asigna el padre al hijo
         hijo.padre = padre;
+        hijo.nivel = (padre.nivel + 1);
     }
     //Preorden: visitar el nodo actual, luego recorrer los hijos de izquierda a derecha
     public void preorden(Nodo nodo){
@@ -106,30 +111,13 @@ public class Abroles {
         System.out.println(nodo.dato);
     }
     //Por nivel: logica FIFO, por ende debemos usar una cola 
-    public void pornivel(Nodo nodo , int N){
-        //caso base 
-        if(nodo == null){
-            return;
-        }
-        //creo la cola
-        Cola cola = new Cola(N);
-        //encolar la raiz
-        cola.encolar(nodo);
-        //mientras la cola no este vacia
-        while(!cola.estaVacia()){
-            //desencolo el primero
-            Nodo actual = cola.desencolar();
-            //visito el nodo actual 
-            System.out.println(actual.dato);
-            //encolo sus hijos
-            for(int i = 0; i < actual.hijos.length; i++){
-                if(actual.hijos[i] != null){
-                    cola.encolar(actual.hijos[i]);
-                }
-            }  
+    public void pornivel(Nodo nodos[]){
+        Nodo[] niveles = new Nodo [nodos.length];
+        int index = 0;
+        for(int i = 0; i < nodos.length; i++){
+            if
         }
     }  
-}
 
     //In orden: izquierda, nodo actual,derecha. 
     //para un arbol general, en dnd recorro primero una mitad, dsp visito el nodo y dsp la otra mitad
@@ -164,6 +152,7 @@ class Nodo {
     Nodo[] hijos;
     int dato;
     Nodo padre;
+    int nivel;
 
     public Nodo(int Nodos, int dato, Nodo padre) {
         this.hijos = new Nodo[Nodos];
@@ -171,52 +160,3 @@ class Nodo {
         this.padre = padre;
     }
 }
-//debo crear una Cola de nodos 
-public class Cola {
-    private Nodo[] datos;
-    private int inicio; 
-    private int fin;
-
-    public Cola(int N) {
-        this.datos = new Nodo[N];
-        this.inicio = 0;
-        this.fin = 0;
-    }
-    public void encolar(Nodo nodo){
-        datos[fin] = nodo;
-        fin++;
-    }
-    public Nodo desencolar(){
-        Nodo aux = datos[inicio];
-        inicio++;
-        return aux;
-    }
-    public boolean estaVacia(){
-        return inicio == fin;
-    }
-    
-}
-
-
-/* funcion que hizo jordi, por las dudas 
-   public static void agregarHijo(Nodo padre, Nodo hijo){
-        //si no tiene nada, lo agrega, simple
-        if(padre.hijos[0] == null){
-            padre.hijos[0] = hijo;
-        }else{
-            for(int i=1; i < padre.hijos.length; i++){
-                //busca una posicion vacia
-                if(padre.hijos[i].dato < hijo.dato){
-                    //agrega el hijo
-                    for(int j = i; j > 0; j--){
-                        
-                    }
-                    //le asigna el padre al hijo
-                }
-            }
-        }
-         hijo.padre = padre;   
-    }
-
-
-*/
