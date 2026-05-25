@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Abroles {
     public static String listadoFinal = "";
@@ -186,7 +187,7 @@ class Cola1 {
      int fin;
 
     public Cola1(int N) {
-        this.datos = new Nodo[N*2];
+        this.datos = new Nodo[N+1];
         this.inicio = 0;
         this.fin = 0;
     }
