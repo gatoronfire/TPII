@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Abroles {
-    public static String listadoFinal = "";
+    public static StringBuilder listadoFinal = new StringBuilder();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -23,7 +23,7 @@ public class Abroles {
 
         //crear los nodos y agregarlos al arreglo
         for(int i=0; i< N; i++){
-            Nodo nuevo = new Nodo(N, i+1, null);
+            Nodo nuevo = new Nodo(i+1, null);
             nodos[i] = nuevo;
         }
 
@@ -37,16 +37,16 @@ public class Abroles {
         printAndReset();
         postorden(nodos[0]);
         printAndReset();
-        pornivel(nodos[0], nodos.length);
+        pornivel(nodos[0]);
         printAndReset();
     }
     //funcion para ver cada nodo y su hijo
     public void verhijos(Nodo[] nodos){
         for (int i = 0; i < nodos.length; i++) {
             System.out.println("Nodo " + (i+1) + ":");
-            for (int j = 0; j < nodos[i].hijos.length; j++) {
-                if(nodos[i].hijos[j] != null){
-                    System.out.println(nodos[i].hijos[j].dato);
+            for (int j = 0; j < nodos[i].hijos.size(); j++) {
+                if(nodos[i].hijos.get(j) != null){
+                    System.out.println(nodos[i].hijos.get(j).dato);
                 }
                 
             }
@@ -55,8 +55,8 @@ public class Abroles {
     //imprime los valores sin espacio 
     //reinicia el acumulador de datos 
     public static void printAndReset(){
-        System.out.println(listadoFinal.trim());
-        listadoFinal = "";
+    System.out.println(listadoFinal.toString().trim());
+    listadoFinal = new StringBuilder();  // reiniciás igual que antes
     }
     //FUNCION AGREGAR HIJO(los menores a la izquierda, los mayores a la derecha)
     //CONCEPTUALMENTE DEBO : 
@@ -64,144 +64,89 @@ public class Abroles {
     // mover los mayores una posicion a la derecha
     // insertar el nuevo hijo 
     public static void agregarHijo(Nodo padre, Nodo hijo){
-        //encontrar la cantidad de hijos, mientras no me salga del arreglo y haya hijos
-        int cantidad = 0;
-        while(cantidad < padre.hijos.length &&
-             padre.hijos[cantidad] != null){
-            cantidad++;
-        }
-        //chequear que haya espacio
-        if(cantidad>= padre.hijos.length){
-            System.out.println("No se puede agregar mas hijos");
-            return;
-        }
-        //encontrar donde va a ir el hijo 
-        int posicion = 0;
-            //mientras el dato del actual sea menor al q quiero insertar 
-        while(posicion < cantidad && padre.hijos[posicion].dato < hijo.dato){
-            posicion++;
-        } 
-        //mover los hijos a la derecha empezando por atras
-        for(int i = cantidad; i > posicion; i--){
-            //guarda en el actual lo que tenia el anterior
-            padre.hijos[i] = padre.hijos[i-1];
-        }  
-        //insertar el nuevo hijo
-        padre.hijos[posicion] = hijo;
-        //le asigna el padre al hijo
-        hijo.padre = padre;
+    int posicion = 0;
+    while(posicion < padre.hijos.size() && padre.hijos.get(posicion).dato < hijo.dato){
+        posicion++;
     }
+    padre.hijos.add(posicion, hijo);  // ArrayList hace el "mover a la derecha" solo
+    hijo.padre = padre;
+}
     //Preorden: visitar el nodo actual, luego recorrer los hijos de izquierda a derecha
     public static void preorden(Nodo nodo){
-    // caso base,donde la funcion corta
-    if(nodo == null){
-        return;
+    if(nodo == null) return;
+    
+    listadoFinal.append(" ").append(nodo.dato);
+    
+    for(int i = 0; i < nodo.hijos.size(); i++){
+        preorden(nodo.hijos.get(i));
     }
-    // visitar el nodo actual
-    listadoFinal += " " + nodo.dato;
-    // recorrer hijos
-    for(int i = 0; i < nodo.hijos.length; i++){
-        if(nodo.hijos[i] != null){
-            //la funcion se llama a si misma para recorrer el hijo
-            preorden(nodo.hijos[i]);
-            }
-        }
-    }
+}
     //Postorden: recorrer los hijos de izquierda a derecha, luego visitar el nodo actual
     public static void postorden(Nodo nodo){
-        // caso base,donde la funcion corta
-        if(nodo == null){
-            return;
-        }
-        // recorrer hijos
-        for(int i = 0; i < nodo.hijos.length; i++){
-            if(nodo.hijos[i] != null){
-                //la funcion se llama a si misma para recorrer el hijo
-                postorden(nodo.hijos[i]);
-                }
-            }
-        // visitar el nodo actual
-        listadoFinal += " " + nodo.dato;
+    if(nodo == null) return;
+    
+    for(int i = 0; i < nodo.hijos.size(); i++){
+        postorden(nodo.hijos.get(i));
     }
+    
+    listadoFinal.append(" ").append(nodo.dato);
+}
     //Por nivel: logica FIFO, por ende debemos usar una cola 
-    public static void pornivel(Nodo nodo , int N){
-        //creo la cola
-        Cola1 cola = new Cola1(N);
-        //encolar la raiz
-        cola.encolar(nodo);
-        //mientras la cola no este vacia
-        while(!cola.estaVacia()){
-            //desencolo el primero
-            Nodo actual = cola.desencolar();
-            //visito el nodo actual 
-            listadoFinal += actual.dato + " ";
-            //encolo sus hijos
-            for(int i = 0; i < actual.hijos.length; i++){
-                if(actual.hijos[i] != null){
-                    cola.encolar(actual.hijos[i]);
-                }
-            }  
+    public static void pornivel(Nodo nodo){
+    Cola1 cola = new Cola1();
+    cola.encolar(nodo);
+    
+    while(!cola.estaVacia()){
+        Nodo actual = cola.desencolar();
+        listadoFinal.append(actual.dato).append(" ");
+        
+        for(int i = 0; i < actual.hijos.size(); i++){
+            cola.encolar(actual.hijos.get(i));
         }
-    }  
+    }
+}
 
     // recorro el primero subarbol, luego la raiz, luego el resto de los subarboles de izquierda a derecha 
     public static void inorden(Nodo nodo){
-        //caso base
-        if(nodo == null){
-            return;
-        }
-        //encontrar la cantidad de hijos totales
-        int cantidad = 0;
-        while(cantidad < nodo.hijos.length && nodo.hijos[cantidad] != null){
-            cantidad++;
-        }
-        //recorrer el primer subarbol
-        if(cantidad > 0){
-            inorden(nodo.hijos[0]);
-        }
-        //visitar la raiz
-        listadoFinal += " " + nodo.dato;
-        //recorrer el resto de los subarboles 
-        for(int i = 1; i < cantidad; i++){
-            inorden(nodo.hijos[i]);
-        }
-    }    
+    if(nodo == null) return;
+    
+    int cantidad = nodo.hijos.size();
+    
+    // recorrer el primer subarbol
+    if(cantidad > 0){
+        inorden(nodo.hijos.get(0));
+    }
+    
+    // visitar la raiz
+    listadoFinal.append(" ").append(nodo.dato);
+    
+    // recorrer el resto de los subarboles
+    for(int i = 1; i < cantidad; i++){
+        inorden(nodo.hijos.get(i));
+    }
+}   
 
 }
 
 class Nodo {
-    Nodo[] hijos;
+    ArrayList<Nodo> hijos;
     int dato;
     Nodo padre;
 
-    public Nodo(int Nodos, int dato, Nodo padre) {
-        this.hijos = new Nodo[Nodos];
+    public Nodo( int dato, Nodo padre) {
+        this.hijos = new ArrayList<>();
         this.dato = dato;
         this.padre = padre;
     }
 }
 
 class Cola1 {
-     Nodo[] datos;
-     int inicio; 
-     int fin;
+    ArrayList<Nodo> datos;
 
-    public Cola1(int N) {
-        this.datos = new Nodo[N+1];
-        this.inicio = 0;
-        this.fin = 0;
+    public Cola1() {
+        this.datos = new ArrayList<>();
     }
-    public void encolar(Nodo nodo){
-        datos[fin] = nodo;
-        fin++;
-    }
-    public Nodo desencolar(){
-        Nodo aux = datos[inicio];
-        inicio++;
-        return aux;
-    }
-    public boolean estaVacia(){
-        return inicio == fin;
-    }
-    
+    public void encolar(Nodo nodo){ datos.add(nodo); }
+    public Nodo desencolar(){ return datos.remove(0); }
+    public boolean estaVacia(){ return datos.isEmpty(); }
 }
