@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Abroles {
+    public static String listadoFinal = "";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -33,7 +34,14 @@ public class Abroles {
             //agregar el hijo con los paramtros del nodo padre y el nodo hijo
             agregarHijo(nodos[padres[i]-1], nodos[i+1]);
         }
-
+        preorden(nodos[0]);
+        printAndReset();
+        inorden(nodos[0]);
+        printAndReset();
+        postorden(nodos[0]);
+        printAndReset();
+        pornivel(nodos[0], nodos.length);
+        printAndReset();
     }
     //funcion para ver cada nodo y su hijo
     public void verhijos(Nodo[] nodos){
@@ -52,6 +60,10 @@ public class Abroles {
     // buscar donde debe ir el hijo dependiendo del valor
     // mover los mayores una posicion a la derecha
     // insertar el nuevo hijo 
+    public static void printAndReset(){
+        System.out.println(listadoFinal.trim());
+        listadoFinal = "";
+    }
 
     public static void agregarHijo(Nodo padre, Nodo hijo){
         //creo una variable donde va a quedar el nuevo hijo 
@@ -79,13 +91,13 @@ public class Abroles {
         hijo.nivel = (padre.nivel + 1);
     }
     //Preorden: visitar el nodo actual, luego recorrer los hijos de izquierda a derecha
-    public void preorden(Nodo nodo){
+    public static void preorden(Nodo nodo){
     // caso base,donde la funcion corta
     if(nodo == null){
         return;
     }
     // visitar el nodo actual
-    System.out.println(nodo.dato);
+    listadoFinal += " " + nodo.dato;
     // recorrer hijos
     for(int i = 0; i < nodo.hijos.length; i++){
         if(nodo.hijos[i] != null){
@@ -95,7 +107,7 @@ public class Abroles {
         }
     }
     //Postorden: recorrer los hijos de izquierda a derecha, luego visitar el nodo actual
-    public void postorden(Nodo nodo){
+    public static void postorden(Nodo nodo){
         // caso base,donde la funcion corta
         if(nodo == null){
             return;
@@ -108,20 +120,32 @@ public class Abroles {
                 }
             }
         // visitar el nodo actual
-        System.out.println(nodo.dato);
+        listadoFinal += " " + nodo.dato;
     }
     //Por nivel: logica FIFO, por ende debemos usar una cola 
-    public void pornivel(Nodo nodos[]){
-        Nodo[] niveles = new Nodo [nodos.length];
-        int index = 0;
-        for(int i = 0; i < nodos.length; i++){
-            if
+    public static void pornivel(Nodo nodo , int N){
+        //creo la cola
+        Cola1 cola = new Cola1(N);
+        //encolar la raiz
+        cola.encolar(nodo);
+        //mientras la cola no este vacia
+        while(!cola.estaVacia()){
+            //desencolo el primero
+            Nodo actual = cola.desencolar();
+            //visito el nodo actual 
+            listadoFinal += actual.dato + " ";
+            //encolo sus hijos
+            for(int i = 0; i < actual.hijos.length; i++){
+                if(actual.hijos[i] != null){
+                    cola.encolar(actual.hijos[i]);
+                }
+            }  
         }
     }  
 
     //In orden: izquierda, nodo actual,derecha. 
     //para un arbol general, en dnd recorro primero una mitad, dsp visito el nodo y dsp la otra mitad
-    public void inorden(Nodo nodo){
+    public static void inorden(Nodo nodo){
         //caso base
         if(nodo == null){
             return;
@@ -138,7 +162,7 @@ public class Abroles {
             inorden(nodo.hijos[i]);
         }
         //visitar el nodo actual
-        System.out.println(nodo.dato);
+        listadoFinal += " " + nodo.dato;
         //recorrer la otra mitad
         for(int i = mitad; i < cantidad; i++){
             inorden(nodo.hijos[i]);
@@ -159,4 +183,29 @@ class Nodo {
         this.dato = dato;
         this.padre = padre;
     }
+}
+
+class Cola1 {
+     Nodo[] datos;
+     int inicio; 
+     int fin;
+
+    public Cola1(int N) {
+        this.datos = new Nodo[N*2];
+        this.inicio = 0;
+        this.fin = 0;
+    }
+    public void encolar(Nodo nodo){
+        datos[fin] = nodo;
+        fin++;
+    }
+    public Nodo desencolar(){
+        Nodo aux = datos[inicio];
+        inicio++;
+        return aux;
+    }
+    public boolean estaVacia(){
+        return inicio == fin;
+    }
+    
 }
