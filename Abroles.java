@@ -22,12 +22,8 @@ public class Abroles {
 
         //crear los nodos y agregarlos al arreglo
         for(int i=0; i< N; i++){
-            
             Nodo nuevo = new Nodo(N, i+1, null);
             nodos[i] = nuevo;
-            if(i==0){
-                nuevo.nivel =0;
-            }
         }
 
         for(int i= 0;i < N-1; i++ ){
