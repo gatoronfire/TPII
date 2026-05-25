@@ -63,21 +63,25 @@ public class Abroles {
     // mover los mayores una posicion a la derecha
     // insertar el nuevo hijo 
     public static void agregarHijo(Nodo padre, Nodo hijo){
-        //creo una variable donde va a quedar el nuevo hijo 
+        //encontrar la cantidad de hijos, mientras no me salga del arreglo y haya hijos
+        int cantidad = 0;
+        while(cantidad < padre.hijos.length &&
+             padre.hijos[cantidad] != null){
+            cantidad++;
+        }
+        //chequear que haya espacio
+        if(cantidad>= padre.hijos.length){
+            System.out.println("No se puede agregar mas hijos");
+            return;
+        }
+        //encontrar donde va a ir el hijo 
         int posicion = 0;
-        //busco la posicion donde debe ir el hijo 
-            //mientras no me salga del arreglo
-            //mientras exista un hijo ahí
             //mientras el dato del actual sea menor al q quiero insertar 
-        while(posicion < padre.hijos.length &&
-             padre.hijos[posicion] != null && 
-             padre.hijos[posicion].dato < hijo.dato){
-
+        while(posicion < cantidad && padre.hijos[posicion].dato < hijo.dato){
             posicion++;
         } 
-        //mover los mayores a la derecha
-        //copia cada elemento , empezando por el final, lo mueve a la derecha 
-        for(int i = padre.hijos.length - 1; i > posicion; i--){
+        //mover los hijos a la derecha empezando por atras
+        for(int i = cantidad; i > posicion; i--){
             //guarda en el actual lo que tenia el anterior
             padre.hijos[i] = padre.hijos[i-1];
         }  
