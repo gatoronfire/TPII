@@ -10,7 +10,7 @@ public class HashMain {
         int N = Integer.parseInt(datitos[0]);
         // int M = Integer.parseInt(datitos[1]);
 
-        String[] superTablaHashingProMax = new String[N];
+        String[] tablaHash = new String[N];
         largo = N;
 
         for(int i =0; i < N; i++){
@@ -19,12 +19,12 @@ public class HashMain {
             //creo el index basado en la palabra
             int index = hashing(palabra);
             //si ese lugar esta ocupado (colision) llamo al hashing que se me canta
-            if(superTablaHashingProMax[index] != null){
-                colisionadoXPete();
+            if(tablaHash[index] != null){
+                solucionColision();
                 return;
             }
             //si la posicion esta libre guardo la palabra en esa posicion
-            superTablaHashingProMax[index] = palabra;
+            tablaHash[index] = palabra;
         }
         sc.close();
     }
@@ -44,7 +44,7 @@ public class HashMain {
     return (int) result;
 }
     //esta seria las funciones en caso de colision
-    public static void colisionadoXPete(){
+    public static void solucionColision(){
         //funcion que deberia tener cada archivo para lidiar con colision
     }
 }
