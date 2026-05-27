@@ -8,7 +8,7 @@ public class HashMain {
         String start = sc.nextLine();
         String[] datitos = start.split(" ");
         int N = Integer.parseInt(datitos[0]);
-        // int M = Integer.parseInt(datitos[1]);
+        int M = Integer.parseInt(datitos[1]);
 
         String[] tablaHash = new String[N];
         largo = N;
