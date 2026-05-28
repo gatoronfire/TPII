@@ -72,4 +72,24 @@ public class HashMain {
         // tabla llena
         return null;
     }
+
+    public static Integer hashCuadratico(String[] tabla, int hashInicial){
+        int c1 = 1; //constante 1 para el calculo cuadratico
+        int c2 = 1; //constante 2 para el calculo cuadratico
+        int m = tabla.length;
+        int i = 0;
+        int indexCuadratico = (hashInicial + c1*i + (c2*Math.powExact(i, 2))) % m;
+        //h(k,i) = (h'(k) + c1*i + c2 *i^2) % m
+        //h(k,i) es la funcion hash original
+        //i son los intentos, i = (0;m-1)
+        // basicamente es la posicion inicial + constante1 * intento + constante 2 * intento ^2
+        while (i < (m-1) && tabla[indexCuadratico] != null ) {
+            i++;
+            indexCuadratico = (hashInicial + c1*i + (c2*Math.powExact(i, 2))) % m;
+            if(tabla[indexCuadratico] == null){
+                return indexCuadratico;
+            }
+        } 
+        return null;
+    }
 }
