@@ -12,10 +12,13 @@ public class HashMain {
         String[] datitos = start.split(" ");
         int N = Integer.parseInt(datitos[0]);
         int M = Integer.parseInt(datitos[1]);
+        //contador de palabras encontradas en la tabla hash
+        int total = 0;
 
         String[] tablaHash = new String[N];
         largo = N;
 
+        //loop para cargar las palabras a la tabla
         for (int i = 0; i < N; i++) {
             // leo la palabra que me pasaron
             String palabra = sc.nextLine();
@@ -33,10 +36,29 @@ public class HashMain {
             // si la posicion esta libre guardo la palabra en esa posicion
             tablaHash[index] = palabra;
         }
+        //loop para buscar las palabras
+        for(int i =0 ; i< M;i++){
+            //leo la palabra que me pasaron
+            String palabra = sc.nextLine();
+            //creo el hash de la palabra
+            int index = hashing(palabra);
+            //chequeo si esta en la tabla con solo el primer hash
+            if(tablaHash[index] == palabra){
+                total++;
+                continue;
+            }
+            int nuevoHash = hashLineal(tablaHash, index);
+            if(tablaHash[nuevoHash] == palabra){
+                total++;
+                continue;
+            }
+        }
+        //imprimo la cantidad de palabras encontradas
+        System.out.println(total);
         sc.close();
     }
 
-    // funcion de hashing del power
+    // funcion de hashing del powerpoint
     public static int hashing(String palabra) {
         int p = 151;
         long result = 0;
