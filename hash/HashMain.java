@@ -3,8 +3,8 @@ package hash;
 import java.util.Scanner;
 
 public class HashMain {
+    //se usa para guardar el largo de la tabla
     static int largo;
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // Acá vamos a llamar a los otros hashes
@@ -43,12 +43,12 @@ public class HashMain {
             //creo el hash de la palabra
             int index = hashing(palabra);
             //chequeo si esta en la tabla con solo el primer hash
-            if(tablaHash[index] == palabra){
+            if(tablaHash[index].equals(palabra)){
                 total++;
                 continue;
             }
             int nuevoHash = hashLineal(tablaHash, index);
-            if(tablaHash[nuevoHash] == palabra){
+            if(tablaHash[nuevoHash].equals(palabra)){
                 total++;
                 continue;
             }
@@ -113,4 +113,6 @@ public class HashMain {
         } 
         return null;
     }
+
+    
 }
