@@ -36,16 +36,16 @@ public class HashEncadenamiento {
         sc.close();
     }
     // funcion de hashing del powerpoint
-    public static int hashing(String palabra) {
+    public static int hashing(String palabra int N) {
         int p = 151;
         long result = 0;
         long potencia = 1;
 
         for (int i = 0; i < palabra.length(); i++) {
 
-            result = (result + palabra.charAt(i) * potencia) % largo;
+            result = (result + palabra.charAt(i) * potencia) % N;
 
-            potencia = (potencia * p) % largo;
+            potencia = (potencia * p) % N;
         }
 
         return (int) result;
