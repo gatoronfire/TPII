@@ -68,7 +68,7 @@ public class HashMain {
 
             result = (result + palabra.charAt(i) * potencia) % largo;
 
-            potencia = (potencia * p) % largo;
+            potencia = (potencia * p);
         }
 
         return (int) result;
