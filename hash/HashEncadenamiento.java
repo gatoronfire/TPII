@@ -21,13 +21,13 @@ public class HashEncadenamiento {
         //guardo palabras
         for (int i = 0; i < N; i++) {
             String palabra = sc.nextLine();
-            int index = hashing(palabra);
+            int index = hashing(palabra, N);
             tablaHash[index].add(palabra);
         }
         //busco palabras
         for(int i =0 ; i< M;i++){
             String palabra = sc.nextLine();
-            int index = hashing(palabra);
+            int index = hashing(palabra, N);
             if(tablaHash[index].contains(palabra)){
                 total++;
             }
@@ -36,7 +36,7 @@ public class HashEncadenamiento {
         sc.close();
     }
     // funcion de hashing del powerpoint
-    public static int hashing(String palabra int N) {
+    public static int hashing(String palabra, int N) {
         int p = 151;
         long result = 0;
         long potencia = 1;
