@@ -62,11 +62,11 @@ public class HashMain {
     public static int hashing(String palabra) {
         int p = 151;
         long result = 0;
-        long potencia = 1;
+        int potencia = 1;
 
         for (int i = 0; i < palabra.length(); i++) {
 
-            result = (result + palabra.charAt(i) * potencia);
+            result = Math.powExact((result + palabra.charAt(i)), potencia);
 
             potencia = (potencia * p);
         }
