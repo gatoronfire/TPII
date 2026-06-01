@@ -66,11 +66,11 @@ public class HashMain {
 
         for (int i = 0; i < palabra.length(); i++) {
 
-            result = (result + palabra.charAt(i) * potencia) % largo;
+            result = (result + palabra.charAt(i) * potencia);
 
             potencia = (potencia * p);
         }
-
+        result = result % largo;
         return (int) result;
     }
 
