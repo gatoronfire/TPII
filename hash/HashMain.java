@@ -36,23 +36,26 @@ public class HashMain {
             // si la posicion esta libre guardo la palabra en esa posicion
             tablaHash[index] = palabra;
         }
-        //loop para buscar las palabras
-        for(int i =0 ; i< M;i++){
-            //leo la palabra que me pasaron
-            String palabra = sc.nextLine();
-            //creo el hash de la palabra
-            int index = hashing(palabra);
-            //chequeo si esta en la tabla con solo el primer hash
-            if(tablaHash[index].equals(palabra)){
-                total++;
-                continue;
-            }
-            int nuevoHash = hashLineal(tablaHash, index);
-            if(tablaHash[nuevoHash].equals(palabra)){
-                total++;
-                continue;
-            }
+        for(int i =0; i < N ; i++){
+            System.out.println(tablaHash[i]);
         }
+        //loop para buscar las palabras
+        // for(int i =0 ; i< M;i++){
+        //     //leo la palabra que me pasaron
+        //     String palabra = sc.nextLine();
+        //     //creo el hash de la palabra
+        //     int index = hashing(palabra);
+        //     //chequeo si esta en la tabla con solo el primer hash
+        //     if(tablaHash[index].equals(palabra)){
+        //         total++;
+        //         continue;
+        //     }
+        //     int nuevoHash = hashLineal(tablaHash, index);
+        //     if(tablaHash[nuevoHash].equals(palabra)){
+        //         total++;
+        //         continue;
+        //     }
+        // }
         //imprimo la cantidad de palabras encontradas
         System.out.println(total);
         sc.close();
@@ -99,14 +102,14 @@ public class HashMain {
         int c1 = 1; //constante 1 para el calculo cuadratico
         int c2 = 1; //constante 2 para el calculo cuadratico
         int i = 0;
-        int indexCuadratico = (hashInicial + c1*i + (c2*Math.powExact(i, 2))) % largo;
+        int indexCuadratico = (hashInicial + c1*i + (c2*(i*i))) % largo;
         //h(k,i) = (h'(k) + c1*i + c2 *i^2) % m
         //h(k,i) es la funcion hash original
         //i son los intentos, i = (0;m-1)
         // basicamente es la posicion inicial + constante1 * intento + constante 2 * intento ^2
         while (i < (largo-1) && tabla[indexCuadratico] != null ) {
             i++;
-            indexCuadratico = (hashInicial + c1*i + (c2*Math.powExact(i, 2))) % largo;
+            indexCuadratico = (hashInicial + c1*i + (c2*(i*i))) % largo;
             if(tabla[indexCuadratico] == null){
                 return indexCuadratico;
             }
