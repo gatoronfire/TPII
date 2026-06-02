@@ -71,7 +71,6 @@ public class HashMain {
             potencia = (potencia * p);
         }
         result = result % largo;
-        System.out.println(result);
         return (int) result;
     }
 
