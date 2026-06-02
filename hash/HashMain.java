@@ -66,7 +66,7 @@ public class HashMain {
 
         for (int i = 0; i < palabra.length(); i++) {
 
-            result = Math.powExact((result + palabra.charAt(i)), potencia);
+            result = (result + palabra.charAt(i)) * i;
 
             potencia = (potencia * p);
         }
