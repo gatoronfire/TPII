@@ -40,22 +40,22 @@ public class HashMain {
             System.out.println(tablaHash[i]);
         }
         //loop para buscar las palabras
-        // for(int i =0 ; i< M;i++){
-        //     //leo la palabra que me pasaron
-        //     String palabra = sc.nextLine();
-        //     //creo el hash de la palabra
-        //     int index = hashing(palabra);
-        //     //chequeo si esta en la tabla con solo el primer hash
-        //     if(tablaHash[index].equals(palabra)){
-        //         total++;
-        //         continue;
-        //     }
-        //     int nuevoHash = hashLineal(tablaHash, index);
-        //     if(tablaHash[nuevoHash].equals(palabra)){
-        //         total++;
-        //         continue;
-        //     }
-        // }
+        for(int i =0 ; i< M;i++){
+            //leo la palabra que me pasaron
+            String palabra = sc.nextLine();
+            //creo el hash de la palabra
+            int index = hashing(palabra);
+            //chequeo si esta en la tabla con solo el primer hash
+            if(tablaHash[index].equals(palabra)){
+                total++;
+                continue;
+            }
+            int nuevoHash = hashLineal(tablaHash, index);
+            if(tablaHash[nuevoHash].equals(palabra)){
+                total++;
+                continue;
+            }
+        }
         //imprimo la cantidad de palabras encontradas
         System.out.println(total);
         sc.close();
