@@ -36,9 +36,6 @@ public class HashMain {
             // si la posicion esta libre guardo la palabra en esa posicion
             tablaHash[index] = palabra;
         }
-        for(int i =0; i < N ; i++){
-            System.out.println(tablaHash[i]);
-        }
         //loop para buscar las palabras
          for(int i =0 ; i< M;i++){
         //leo la palabra que me pasaron
@@ -51,7 +48,8 @@ public class HashMain {
                  continue;
              }
              int nuevoHash = hashLineal(tablaHash, index);
-             if(tablaHash[nuevoHash].equals(palabra)){
+             if(nuevoHash == largo+1){continue;}
+             if( tablaHash[nuevoHash].equals(palabra)){
                  total++;
                  continue;
              }
@@ -95,7 +93,16 @@ public class HashMain {
         }
 
         // tabla llena
-        return null;
+        return largo+1;
+    }
+    public boolean BusquedaLineal(String[] tabla, int hashInicial, String palabra){
+        String palabraEncontrada = tabla[hashInicial];
+        int index = hashing(palabra);
+
+        for (int i = 0; i < tabla.length; i++) {
+            if (index)
+        }
+
     }
 
     public static Integer hashCuadratico(String[] tabla, int hashInicial){
