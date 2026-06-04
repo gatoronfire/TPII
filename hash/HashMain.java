@@ -1,4 +1,3 @@
-package hash;
 
 import java.util.Scanner;
 
@@ -16,9 +15,9 @@ public class HashMain {
         // contador de palabras encontradas en la tabla hash
         int total = 0;
 
-        int tamañoTabla = 131071;
-        String[] tablaHash = new String[tamañoTabla];
-        largo = tamañoTabla;
+        int tamanioTabla = 131071;
+        String[] tablaHash = new String[tamanioTabla];
+        largo = tamanioTabla;
         int palabras = N;
 
         // loop para cargar las palabras a la tabla
@@ -26,7 +25,8 @@ public class HashMain {
             // leo la palabra que me pasaron
             String palabra = sc.nextLine();
             // busco la siguiente posicion vacia en la tabla
-            int pos = buscarPosicion(tablaHash, palabra);
+            //int pos = buscarPosicion(tablaHash, palabra);
+            int pos = buscarPosicionCuadratica(tablaHash, palabra);
             // si la posicion de pos esta vacia
             if (tablaHash[pos] == null) {
                 // guardo la palabra
@@ -36,7 +36,6 @@ public class HashMain {
                 palabras--;
             }
         }
-<<<<<<< HEAD
         //loop para buscar las palabras
          for(int i =0 ; i< M;i++){
         //leo la palabra que me pasaron
@@ -57,22 +56,6 @@ public class HashMain {
          }
         //imprimo la cantidad de palabras encontradas
         System.out.println(total);
-=======
-        // loop para buscar las palabras
-        for (int i = 0; i < M; i++) {
-            // leo la palabra que me pasaron
-            String palabra = sc.nextLine();
-            // busco la posicion
-            int pos = buscarPosicion(tablaHash, palabra);
-            // si la posicion no esta vacia (porque encontre la misma palabra)
-            if (tablaHash[pos] != null) {
-                // aumento el total
-                total++;
-            }
-        }
-        // imprimo la cantidad de palabras encontradas
-        System.out.println(palabras + " " + total);
->>>>>>> 59eb92ba00e1be9b60d2d4919179723c53878d41
         sc.close();
     }
 
@@ -98,7 +81,6 @@ public class HashMain {
             // cargo la siguiente posicion de index (modulo por el largo de la tabla para empezar de 0 si me paso)
             index = (index + 1) % largo;
         }
-<<<<<<< HEAD
 
         // si no encontre, busco desde el principio
         for (int i = 0; i < hashInicial; i++) {
@@ -109,19 +91,6 @@ public class HashMain {
 
         // tabla llena
         return largo+1;
-    }
-    public boolean BusquedaLineal(String[] tabla, int hashInicial, String palabra){
-        String palabraEncontrada = tabla[hashInicial];
-        int index = hashing(palabra);
-
-        for (int i = 0; i < tabla.length; i++) {
-            if (index)
-        }
-
-=======
-        // devuelvo index
-        return index;
->>>>>>> 59eb92ba00e1be9b60d2d4919179723c53878d41
     }
 
     public static Integer hashCuadratico(String[] tabla, int hashInicial) {
@@ -134,13 +103,37 @@ public class HashMain {
         // i son los intentos, i = (0;m-1)
         // basicamente es la posicion inicial + constante1 * intento + constante 2 *
         // intento ^2
+        //busco indices mientras no me salga de la tabla y mientras la posicion este ocupada
         while (i < (largo - 1) && tabla[indexCuadratico] != null) {
+            //voy cambiando el indice 
             i++;
             indexCuadratico = (hashInicial + c1 * i + (c2 * (i * i))) % largo;
+            //si la tabla en ese indice esta vacia devuelvo el indice
             if (tabla[indexCuadratico] == null) {
                 return indexCuadratico;
             }
         }
         return null;
+    }
+
+
+    public static int buscarPosicionCuadratica(String[] tabla, String palabra) {
+        int hashInicial = hashing(palabra);
+        int index = hashInicial;
+        //variables para modificar el indice usando sondeo cuadratico
+        int c1 = 1; 
+        int c2 = 1; 
+        int i = 0;
+        //loopeo siempre que la posicion no sea null y la palabra no este repetida
+        while (tabla[index] != null && !tabla[index].equals(palabra)) {
+            i++;
+            index = (index + c1 * i + (c2 * (i * i))) % largo;
+        }
+        //en caso de que la tabla este llena devuelvo null
+        if (i >= largo) {
+            return largo + 1;
+        }
+        return index;
+
     }
 }
