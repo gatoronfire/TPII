@@ -41,7 +41,7 @@ public class HashMain {
             // leo la palabra que me pasaron
             String palabra = sc.nextLine();
             // busco la posicion
-            int pos = buscarPosicion(tablaHash, palabra);
+            int pos = buscarPosicionCuadratica(tablaHash, palabra);
             // si la posicion no esta vacia (porque encontre la misma palabra)
             if (tablaHash[pos] != null) {
                 // aumento el total
@@ -77,7 +77,7 @@ public class HashMain {
         }
 
         // tabla llena
-        return largo+1;
+        return index;
     }
 
     public static Integer hashCuadratico(String[] tabla, int hashInicial) {
