@@ -50,11 +50,10 @@ public class HashMain {
                  total++;
                  continue;
              }
-             int nuevoHash = hashLineal(tablaHash, index);
-             if(tablaHash[nuevoHash].equals(palabra)){
-                 total++;
-                 continue;
-             }
+             //llamo a la funcion de busqueda de hash lineal y la guardo en un bool
+            Boolean existe = busquedaHashLineal(tablaHash, index, palabra);
+            //si existe es verdadero (la palabra existe) aumento el contador
+            if(existe){total++;}
          }
         //imprimo la cantidad de palabras encontradas
         System.out.println(total);
@@ -117,5 +116,32 @@ public class HashMain {
         return null;
     }
 
-    
+    public static Boolean busquedaHashLineal(String[] tabla, int hashInicial, String palabraBuscada){
+    //loop que empieza en el index del hash inicial y termina al final de la tabla
+        for (int i = hashInicial; i < tabla.length; i++) {
+            //chequeo si en la posicion "i" la palabra existe o es nula
+            if(tabla[i].equals(palabraBuscada)){
+                //si la palabra existe o es nula devuelvo "true" 
+                return true;
+            }
+            //si la posicion "i" es nula devuelvo que no existe
+            if(tabla[i] == null){
+                return false;
+            }
+        }
+        //en caso de que no encontre la palabra o un lugar vacio empiezo otro loop
+        //desde la posicion 0 hasta el hash inicial
+        for (int i = 0; i < hashInicial; i++) {
+            //mismo chequeo que antes
+            if(tabla[i].equals(palabraBuscada)){
+                return true;
+            }
+            if(tabla[i] == null){
+                return false;
+            }
+        }
+        //si recorri toda la tabla y no encontre la palabra o un lugar vacio devuelvo que no existe
+        return false;
+    }
 }
+    
