@@ -1,4 +1,4 @@
-
+package hash;
 import java.util.Scanner;
 
 public class HashMain {
@@ -37,25 +37,19 @@ public class HashMain {
             }
         }
         //loop para buscar las palabras
-         for(int i =0 ; i< M;i++){
-        //leo la palabra que me pasaron
+        for (int i = 0; i < M; i++) {
+            // leo la palabra que me pasaron
             String palabra = sc.nextLine();
-        //creo el hash de la palabra
-            int index = hashing(palabra);
-           //chequeo si esta en la tabla con solo el primer hash
-            if(tablaHash[index].equals(palabra)){
-                 total++;
-                 continue;
-             }
-             int nuevoHash = hashLineal(tablaHash, index);
-             if(nuevoHash == largo+1){continue;}
-             if( tablaHash[nuevoHash].equals(palabra)){
-                 total++;
-                 continue;
-             }
-         }
-        //imprimo la cantidad de palabras encontradas
-        System.out.println(total);
+            // busco la posicion
+            int pos = buscarPosicion(tablaHash, palabra);
+            // si la posicion no esta vacia (porque encontre la misma palabra)
+            if (tablaHash[pos] != null) {
+                // aumento el total
+                total++;
+            }
+        }
+        // imprimo la cantidad de palabras encontradas
+        System.out.println(palabras + " " + total);
         sc.close();
     }
 
@@ -80,13 +74,6 @@ public class HashMain {
         while (tabla[index] != null && !tabla[index].equals(palabra)) {
             // cargo la siguiente posicion de index (modulo por el largo de la tabla para empezar de 0 si me paso)
             index = (index + 1) % largo;
-        }
-
-        // si no encontre, busco desde el principio
-        for (int i = 0; i < hashInicial; i++) {
-            if (tabla[i] == null) {
-                return i;
-            }
         }
 
         // tabla llena
