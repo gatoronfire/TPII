@@ -21,8 +21,10 @@ public class HashEncadenamiento {
         //guardo palabras
         for (int i = 0; i < N; i++) {
             String palabra = sc.nextLine();
-            int index = hashing(palabra, N);
-            tablaHash[index].add(palabra);
+            int index = buscarPosicionEncadenamiento(tablaHash, palabra, N);
+            if (index != -1) {
+                tablaHash[index].add(palabra);
+            }
         }
         //busco palabras
         for(int i =0 ; i< M;i++){
@@ -49,6 +51,15 @@ public class HashEncadenamiento {
         }
         result = result % N;
         return (int) result;
+    }
+    public static int buscarPosicionEncadenamiento(ArrayList<String>[] tablaHash, String palabra, int N) {
+        int index = hashing(palabra, N);
+        //si la palabra ya esta en la lista, devuelvo -1 para indicar que no existe
+        if (tablaHash[index].contains(palabra)) {
+            return -1;
+        }
+        //sino devuelvo el index donde se puede insertar la palabra
+        return index;
     }
 
 }
