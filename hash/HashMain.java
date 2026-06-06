@@ -14,7 +14,14 @@ public class HashMain {
         int M = Integer.parseInt(datitos[1]);
         // contador de palabras encontradas en la tabla hash
         int total = 0;
-
+        // checksum h para calcular, eh, algo
+        long H = 0;
+        // constante B para calcular H
+        int B = 911382323;
+        // constante sobre la cual modular
+        int MOD = 1000000007;
+        // ans es 0 o 1 segun si se encuentra la palabra al buscarla
+        int ans = 0;
         int tamanioTabla = 131071;
         String[] tablaHash = new String[tamanioTabla];
         largo = tamanioTabla;
@@ -46,10 +53,17 @@ public class HashMain {
             if (tablaHash[pos] != null) {
                 // aumento el total
                 total++;
+                //ans se calcula como 1 porque se encontro la palabra
+                ans = 1;
+            }else{
+                //no se encontro la palabra entonces se calcula como 0
+                ans = 0;
             }
+            //se calcula H por cada busqueda (M)
+            H = (H * B + (ans + 1)) % MOD;
         }
         // imprimo la cantidad de palabras encontradas
-        System.out.println(palabras + " " + total);
+        System.out.println(palabras + " " + total + " " + H);
         sc.close();
     }
 
