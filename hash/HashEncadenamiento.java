@@ -1,4 +1,3 @@
-package hash;
 import java.util.Scanner;
 //usamos un array list porque no hay que fijarle tamaño a los arreglos
 //el arreglo crece dependiento las palabras que vayan a ese index
