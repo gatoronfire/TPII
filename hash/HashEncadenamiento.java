@@ -23,7 +23,6 @@ public class HashEncadenamiento {
             tablaHash[i] = new ArrayList<String>();
         }
         //guardo palabras
-        long inicioInsercion = System.nanoTime();
         for (int i = 0; i < N; i++) {
             String palabra = sc.nextLine();
             int index = buscarPosicionEncadenamiento(tablaHash, palabra, N);
@@ -32,8 +31,6 @@ public class HashEncadenamiento {
                 palabrasGuardadas++;
             }
         }
-        long finInser = System.nanoTime();
-        long inicioBusq = System.nanoTime();
         //busco palabras
         for(int i =0 ; i< M;i++){
             String palabra = sc.nextLine();
@@ -44,12 +41,7 @@ public class HashEncadenamiento {
             }else{ans = 0;}
             H = (H * B + (ans + 1)) % MOD;
         }
-        long finBusq = System.nanoTime();
-        long tiempoInser = finInser - inicioInsercion;
-        long tiempoBusqueda = finBusq - inicioBusq;
-        System.out.println("tiempo insercion: " + tiempoInser);
-        System.out.println("tiempo busqueda: " + tiempoBusqueda);
-        System.out.println("elementos guardados: " + palabrasGuardadas);
+        System.out.println(palabrasGuardadas + " " + palabrasEncontradas + " " + H);
         sc.close();
     }
   // funcion de hashing del powerpoint

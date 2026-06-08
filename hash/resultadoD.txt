@@ -1,3 +1,0 @@
-tiempo insercion: 120910200
-tiempo busqueda: 185143800
-elementos guardados: 58842
